@@ -1,0 +1,14 @@
+AllCops:
+  Exclude:
+    - bin/*
+    - config/**/*
+    - config.ru
+    - db/migrate/*
+    - db/schema.rb
+    - node_modules/**/*
+    - vendor/**/*
+    - tmp/**/*
+
+Bundler:
+  Enabled: false
+
