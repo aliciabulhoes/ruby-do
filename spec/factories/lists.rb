@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :lists do
-    association :users, factory: :user
+  factory :list do
+    association :user, factory: :user
     title { Faker::Name.name }
   end
 end

@@ -12,22 +12,22 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_03_02_134959) do
   create_table "lists", force: :cascade do |t|
-    t.integer "users_id", null: false
+    t.integer "user_id", null: false
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_lists_on_users_id"
+    t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.integer "lists_id", null: false
+    t.integer "list_id", null: false
     t.string "name"
     t.datetime "due_date"
     t.datetime "{:null=>true}"
     t.boolean "completed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["lists_id"], name: "index_tasks_on_lists_id"
+    t.index ["list_id"], name: "index_tasks_on_list_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,6 +38,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_02_134959) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "lists", "users", column: "users_id"
-  add_foreign_key "tasks", "lists", column: "lists_id"
+  add_foreign_key "lists", "users", on_delete: :cascade
+  add_foreign_key "tasks", "lists", on_delete: :cascade
 end
