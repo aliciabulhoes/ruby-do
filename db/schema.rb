@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_02_134959) do
     t.integer "list_id", null: false
     t.string "name"
     t.datetime "due_date"
-    t.datetime "{:null=>true}"
     t.boolean "completed", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

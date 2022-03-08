@@ -3,7 +3,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
     create_table :tasks do |t|
       t.references :list, null: false, foreign_key: { on_delete: :cascade }
       t.string :name
-      t.datetime :due_date, { null: true }
+      t.datetime :due_date
       t.boolean :completed, default: false
 
       t.timestamps
