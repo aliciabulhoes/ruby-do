@@ -5,9 +5,6 @@ require 'active_support/core_ext/integer/time'
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # By default, config.debug_exception_response_format is set to :api, when config.api_only is set to true.
-  config.debug_exception_response_format = :default
-
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
