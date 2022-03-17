@@ -36,4 +36,41 @@ describe RubyDo::V1::Lists, type: :request do
       end
     end
   end
+
+  describe 'post /api/v1/lists' do
+    subject(:post_path) { post '/api/v1/lists', params: list_params }
+
+    context 'requires title' do
+      let(:list_params) { {} }
+      it 'raises error' do
+        post_path
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
+    context 'valid params' do
+      let(:list_params) { { title: 'The Title' } }
+
+      it 'returns success' do
+        post_path
+        expect(JSON.parse(response.body)['title']).to eq('The Title')
+      end
+    end
+  end
+
+  describe 'put /api/v1/lists/:id' do
+    subject(:update_path) { put "/api/v1/lists/#{id}", params: }
+    let!(:list) { FactoryBot.create(:list) }
+    let(:id) { list.id }
+    let(:params) do
+      {
+        title: Faker::Lorem.word
+      }
+    end
+
+    it 'updates list title' do
+      update_path
+      expect(JSON.parse(response.body)['title']).to eq(params[:title])
+    end
+  end
 end

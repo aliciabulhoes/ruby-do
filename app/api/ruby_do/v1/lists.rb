@@ -16,6 +16,24 @@ module RubyDo
             List.find(params[:id])
           end
         end
+
+        desc 'Create a list.'
+        params do
+          requires :title, type: String, desc: 'List Title.'
+        end
+        post do
+          List.create(params)
+        end
+
+        desc 'Update a list.'
+        params do
+          requires :title, type: String, desc: 'List Title.', allow_blank
+        end
+        route_param :id do
+          put do
+            List.update(params[:id], params)
+          end
+        end
       end
     end
   end
