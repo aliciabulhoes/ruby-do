@@ -19,7 +19,7 @@ module RubyDo
 
         desc 'Create a list.'
         params do
-          requires :title, type: String, desc: 'List Title.'
+          requires :title, type: String, desc: 'List Title.', allow_blank: false
         end
         post do
           List.create(params)

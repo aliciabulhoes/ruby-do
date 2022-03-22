@@ -38,18 +38,24 @@ describe RubyDo::V1::Lists, type: :request do
   end
 
   describe 'post /api/v1/lists' do
-    subject(:post_path) { post '/api/v1/lists', params: list_params }
+    subject(:post_path) { post '/api/v1/lists', params: }
 
-    context 'requires title' do
-      let(:list_params) { {} }
+    context 'requires params' do
+      let(:params) { {} }
       it 'raises error' do
+        post_path
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it 'title cannot be blank' do
+        params[:title] = ''
         post_path
         expect(response).to have_http_status(:bad_request)
       end
     end
 
     context 'valid params' do
-      let(:list_params) { { title: 'The Title' } }
+      let(:params) { { title: 'The Title' } }
 
       it 'returns success' do
         post_path
@@ -66,6 +72,12 @@ describe RubyDo::V1::Lists, type: :request do
       {
         title: Faker::Lorem.word
       }
+    end
+
+    it 'title cannot be blank' do
+      params[:title] = ''
+      update_path
+      expect(response).to have_http_status(:bad_request)
     end
 
     it 'updates list title' do
