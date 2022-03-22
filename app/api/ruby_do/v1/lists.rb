@@ -2,18 +2,24 @@ module RubyDo
   module V1
     class Lists < Grape::API
       resource :lists do
-        desc 'Return all lists'
+        desc 'Return all lists' do
+          entity Entities::List
+        end
         get do
-          List.all
+          lists = List.all
+          present lists, with: Entities::List
         end
 
-        desc 'Return a specific list.'
+        desc 'Return a specific list.' do
+          entity Entities::List
+        end
         params do
           requires :id, type: Integer, desc: 'List ID.'
         end
         route_param :id do
           get do
-            List.find(params[:id])
+            list = List.find(params[:id])
+            present list, with: Entities::List
           end
         end
 

@@ -12,7 +12,12 @@ describe RubyDo::V1::Lists, type: :request do
 
     it 'gets all lists' do
       get_path
-      expect(response.body).to include_json([{ id: list.id, title: list.title }])
+      expect(response.body).to include_json(
+        [
+          { id: lists[0].id, title: lists[0].title },
+          { id: lists[1].id, title: lists[1].title }
+        ]
+      )
     end
 
     context 'list with tasks' do
@@ -25,10 +30,11 @@ describe RubyDo::V1::Lists, type: :request do
             {
               id: lists[0].id,
               title: lists[0].title,
-              task: [
+              tasks: [
                 {
                   name: task.name,
-                  list_id: lists[0].id
+                  list_id: lists[0].id,
+                  published_at: task.created_at.as_json
                 }
               ]
             }
@@ -52,7 +58,7 @@ describe RubyDo::V1::Lists, type: :request do
       let(:id) { list.id }
       it 'returns success' do
         get_path
-        expect(response.body).to include_json({ id: list.id, title: list.title })
+        expect(response.body).to include_json({ id: list.id, title: list.title, tasks: [] })
       end
     end
   end
