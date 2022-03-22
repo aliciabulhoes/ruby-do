@@ -52,6 +52,7 @@ gem 'bootsnap', require: false
 
 # Use grape api framework [https://github.com/ruby-grape/grape]
 gem 'grape'
+gem 'grape-entity'
 
 # Use Rubocop [https://github.com/rubocop/rubocop]
 gem 'rubocop', require: false
