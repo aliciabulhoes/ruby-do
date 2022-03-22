@@ -12,9 +12,7 @@ describe RubyDo::V1::Lists, type: :request do
 
     it 'gets all lists' do
       get_path
-      # with one list ie. let!(:list) { FactoryBot.create(:list) }
-      # expect(JSON.parse(response.body)[0]).to eq(JSON.parse(lists.to_json))
-      expect(JSON.parse(response.body)).to eq(JSON.parse(lists.to_json))
+      expect(response.body).to include_json([{ id: list.id, title: list.title }])
     end
   end
 
@@ -32,7 +30,7 @@ describe RubyDo::V1::Lists, type: :request do
       let(:id) { list.id }
       it 'returns success' do
         get_path
-        expect(JSON.parse(response.body)).to eq(JSON.parse(list.to_json))
+        expect(response.body).to include_json({ id: list.id, title: list.title })
       end
     end
   end
@@ -59,7 +57,7 @@ describe RubyDo::V1::Lists, type: :request do
 
       it 'returns success' do
         post_path
-        expect(JSON.parse(response.body)['title']).to eq('The Title')
+        expect(response.body).to include_json({ title: 'The Title' })
       end
     end
   end
@@ -82,7 +80,7 @@ describe RubyDo::V1::Lists, type: :request do
 
     it 'updates list title' do
       update_path
-      expect(JSON.parse(response.body)['title']).to eq(params[:title])
+      expect(response.body).to include_json({ title: params[:title] })
     end
   end
 end
