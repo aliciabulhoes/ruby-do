@@ -14,6 +14,28 @@ describe RubyDo::V1::Lists, type: :request do
       get_path
       expect(response.body).to include_json([{ id: list.id, title: list.title }])
     end
+
+    context 'list with tasks' do
+      let!(:task) { FactoryBot.create(:task, list: lists[0]) }
+
+      it 'gets all lists with tasks' do
+        get_path
+        expect(response.body).to include_json(
+          [
+            {
+              id: lists[0].id,
+              title: lists[0].title,
+              task: [
+                {
+                  name: task.name,
+                  list_id: lists[0].id
+                }
+              ]
+            }
+          ]
+        )
+      end
+    end
   end
 
   describe 'get /api/v1/lists/:id' do
