@@ -27,7 +27,7 @@ module RubyDo
 
         desc 'Update a list.'
         params do
-          requires :title, type: String, desc: 'List Title.', allow_blank
+          requires :title, type: String, desc: 'List Title.', allow_blank: false
         end
         route_param :id do
           put do
