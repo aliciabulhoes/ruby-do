@@ -111,4 +111,14 @@ describe RubyDo::V1::Lists, type: :request do
       expect(response.body).to include_json({ title: params[:title] })
     end
   end
+
+  describe 'delete /api/v1/lists/:id' do
+    subject(:delete_path) { delete "/api/v1/lists/#{list.id}" }
+    let!(:list) { FactoryBot.create(:list) }
+
+    it 'deletes a list' do
+      delete_path
+      expect(List.where(id: list.id).first).to be_nil
+    end
+  end
 end

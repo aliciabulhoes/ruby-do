@@ -40,6 +40,13 @@ module RubyDo
             List.update(params[:id], params)
           end
         end
+
+        desc 'Delete a list.'
+        route_param :id do
+          delete do
+            List.destroy(params[:id])
+          end
+        end
       end
     end
   end
