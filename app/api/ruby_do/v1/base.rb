@@ -4,6 +4,7 @@ module RubyDo
       version 'v1', using: :path
 
       mount Lists
+      mount Tasks
     end
   end
 end
