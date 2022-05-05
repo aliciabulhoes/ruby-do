@@ -1,6 +1,14 @@
+require 'doorkeeper/grape/helpers'
+
 module RubyDo
   module V1
     class Lists < Grape::API
+      helpers Doorkeeper::Grape::Helpers
+
+      before do
+        doorkeeper_authorize!
+      end
+
       resource :lists do
         desc 'Return all lists' do
           entity Entities::List

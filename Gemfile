@@ -91,3 +91,7 @@ group :test do
   gem 'webdrivers'
   gem 'rspec-json_expectations'
 end
+
+gem "devise", "~> 4.8"
+
+gem "doorkeeper", "~> 5.5"

@@ -5,6 +5,7 @@ module RubyDo
 
       mount Lists
       mount Tasks
+      mount Users
     end
   end
 end
