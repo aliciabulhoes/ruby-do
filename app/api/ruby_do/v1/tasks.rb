@@ -1,6 +1,12 @@
 module RubyDo
   module V1
     class Tasks < Grape::API
+      helpers Doorkeeper::Grape::Helpers
+
+      before do
+        doorkeeper_authorize!
+      end
+
       resource :tasks do
         desc 'Create a task.'
         params do

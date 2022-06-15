@@ -4,10 +4,9 @@ describe RubyDo::V1::Users, type: :request do
   describe 'get /api/v1/users/me' do
     subject(:get_path) { get '/api/v1/users/me', headers: { 'Authorization': "Bearer #{token}" } }
     let!(:user) { FactoryBot.create(:user) }
+    let(:token) { nil }
 
     context 'unauthorized' do
-      let(:token) { nil }
-
       it 'fails with HTTP 401' do
         get_path
         expect(response).to have_http_status(:unauthorized)
@@ -25,8 +24,8 @@ describe RubyDo::V1::Users, type: :request do
       it 'gets user information' do
         get_path
         expect(response.body).to include_json(
-          []
-        )
+                                   []
+                                 )
       end
     end
   end
@@ -43,18 +42,34 @@ describe RubyDo::V1::Users, type: :request do
       }
     end
 
-    it 'returns success' do
-      register_user
-      expect(response).to have_http_status(:created)
+    context 'invalid params' do
+      it 'returns error when params are blank' do
+        params[:first_name] = nil
+        register_user
+        expect(response).to have_http_status(400)
+      end
+
+      it 'returns error when email is invalid' do
+        params[:email] = 'email.com'
+        register_user
+        expect(response).to have_http_status(400)
+      end
     end
 
-    it 'returns new user' do
-      register_user
-      expect(response.body).to include_json(
-        first_name: 'John',
-        last_name: 'Johnson',
-        email: 'john@johnson.com'
-      )
+    context 'valid params' do
+      it 'returns success' do
+        register_user
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'returns new user' do
+        register_user
+        expect(response.body).to include_json(
+                                   first_name: params[:first_name],
+                                   last_name: params[:last_name],
+                                   email: params[:email]
+                                 )
+      end
     end
   end
 end
