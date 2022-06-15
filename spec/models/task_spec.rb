@@ -7,6 +7,10 @@ RSpec.describe Task, type: :model do
     expect { task.update!(list_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
+  it 'requires a name' do
+    expect { task.update!(name: nil) }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
   it 'deletes the task when a list is deleted' do
     task.list.destroy!
     expect(Task.where(id: task.id).first).to be_nil
