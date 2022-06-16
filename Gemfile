@@ -9,7 +9,6 @@ ruby '3.1.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.2'
 
 gem 'react-rails'
-gem 'webpacker'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -95,6 +94,7 @@ group :test do
   gem 'rspec-json_expectations'
 end
 
-gem "devise", "~> 4.8"
+gem 'devise', '~> 4.8'
 
-gem "doorkeeper", "~> 5.5"
+gem 'doorkeeper', '~> 5.5'
+gem 'vite_rails'
